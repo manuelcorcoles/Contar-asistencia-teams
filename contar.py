@@ -5,11 +5,12 @@ from collections import defaultdict
 directorio = "/home/manu/Contar-asistencia-teams"  # Reemplaza con la ruta correcta
 
 alumnos = defaultdict(int)  # Diccionario para contar la asistencia de cada alumno
-
+archivos_totales = 0
 # Recorre todos los archivos CSV en el directorio
 for archivo in os.listdir(directorio):
     if archivo.endswith(".csv"):
         ruta_archivo = os.path.join(directorio, archivo)
+        archivos_totales += 1
 
         try:
             # Leer el archivo CSV y extraer los datos relevantes
@@ -30,4 +31,4 @@ for archivo in os.listdir(directorio):
 
 # Imprimir el recuento de asistencia para cada alumno
 for alumno, count in alumnos.items():
-    print(f"{alumno}: {count}")
+    print(f"{alumno}: Ha ido a {count} clases y ha faltado a {archivos_totales-count} clases")
