@@ -54,12 +54,12 @@ for archivo in os.listdir(carpeta):
 personas_tiempo_ordenadas = sorted(recuento_personas_tiempo.items(), key=lambda x: x[1], reverse=True)
 personas_total_ordenadas = sorted(recuento_personas_total.items(), key=lambda x: x[1], reverse=True)
 
-# Guardar la salida en un archivo de texto
-with open("GrupoMiercoles.txt", "w") as archivo_salida:
-    # Escribir el número de Excels recorridos
-    archivo_salida.write(f'Número de Excels recorridos de la clase del lunes: {excels_recorridos}\n\n')
-    
-    # Escribir el número de apariciones de más de 90 minutos y de menos para cada persona
-    for persona, count_tiempo in personas_tiempo_ordenadas:
-        count_total = recuento_personas_total.get(persona, 0)
-        archivo_salida.write(f'{persona}: {count_tiempo}\n')
+# Crear un DataFrame para guardar los resultados
+data = {
+    'Alumno': [persona for persona, _ in personas_tiempo_ordenadas],
+    'Asistencia': [count_tiempo for _, count_tiempo in personas_tiempo_ordenadas]
+}
+
+# Crear el DataFrame y guardarlo en un archivo CSV
+df_resultado = pd.DataFrame(data)
+df_resultado.to_csv("AsistenciaMiercoles.csv", index=False)
